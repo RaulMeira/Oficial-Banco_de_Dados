@@ -159,3 +159,9 @@ select sum(preço) as 'soma dos preços', avg(preço) as 'média dos preços'fro
 
 -- s) Exibir a soma dos preços distintos dos produtos;
 -- t) Exibir a soma dos preços dos produtos agrupado por uma determinada venda;
+select sum(preço) from produto 
+	join carrinho on produto.idProduto = carrinho.fkProduto
+    join venda on carrinho.fkVenda = venda.idVenda
+    group by venda.idVenda = 50;
+    select * from venda where idVenda = 50;
+    
