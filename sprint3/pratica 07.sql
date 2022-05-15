@@ -105,3 +105,5 @@ select count(media) as 'quantidade de medias' from matricula;
 
 -- Exibir a quantidade de medias distintas da tabela Aluno Curso
 
+select nome.aluno, max(media.matricula) from matricula
+join aluno on matricula.fkAluno = aluno.ra;

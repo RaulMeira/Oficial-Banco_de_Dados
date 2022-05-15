@@ -18,6 +18,7 @@ CREATE TABLE aviso (
 	fk_usuario INT,
 	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 ); 
+select* from aviso;
 
 
 CREATE TABLE medida (
@@ -29,6 +30,7 @@ CREATE TABLE medida (
 );
 
 select * from usuario;
+alter table usuario drop column cpf;
 
 drop table usuario;
 

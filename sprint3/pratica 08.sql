@@ -16,7 +16,9 @@ CEP varchar (45),
 numero int,
 fkIndicado int,
 foreign key (fkIndicado) references cliente(idCliente)
-);
+); -- era pra ser fkIndicador, pois vai estar de quem o cliente foi indicado,
+		-- sempre vai ser a ação, ex: raul indica 1 ou mais cliente, e o diogo foi indicado pelo raul
+								   -- 
 
 create table venda (
 idVenda int primary key auto_increment,
@@ -156,8 +158,13 @@ select * from produto;
 select sum(preço) as 'soma dos preços', avg(preço) as 'média dos preços'from produto;
 
 -- r) Exibir a quantidade de preços acima da média entre todos os produtos;
+select count(preço) from produto 
+	where preço > avg(preço);
 
 -- s) Exibir a soma dos preços distintos dos produtos;
+select sum(distinct(preço)) from produto;
+
+
 -- t) Exibir a soma dos preços dos produtos agrupado por uma determinada venda;
 select sum(preço) from produto 
 	join carrinho on produto.idProduto = carrinho.fkProduto
@@ -165,3 +172,33 @@ select sum(preço) from produto
     group by venda.idVenda = 50;
     select * from venda where idVenda = 50;
     
+-- =====================================================
+-- NOVOS CONCEITOS
+select * from cliente;
+select * from venda;
+
+insert into venda values
+(null, 650, '2022-08-09', 1); -- vao ter 2 vendas com valores iguais, 650
+
+-- diferent = distinct
+select sum(distinct total) Total from venda; -- total é como um apelido pra coluna
+
+-- o distinct soma só os valores diferentes, no caso so soma uma venda que tem 650, fica menor
+
+select sum(total) Total from venda; -- soma TODAS as vendas, até as duas vendas de 650, fica maior
+
+select distinct total from venda; -- só mostra uma venda de 650
+
+-- =============================================
+-- GROUP BY = agrupado por
+select cliente.nome, sum(total) as total from cliente join venda -- tem que ter pelo menos 2 campos no select
+	on fkCliente = idCliente group by nome; 
+    
+select fkCliente, sum(total) as total from venda group by fkCliente;
+
+-- SUBQUERY = select dentro do select
+select truncate(avg(total),2) as media from venda; -- truncate arredondou com 2 casas decimais
+
+select sum(total) as total from venda
+	where total > (select truncate(avg(total),2) as media from venda);
+
