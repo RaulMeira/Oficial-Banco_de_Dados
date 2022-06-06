@@ -32,6 +32,9 @@ fkGrupo int,
 foreign key (fkGrupo) references grupo (idGrupo)
 );
 
+drop table grupo;
+alter table aluno drop column fkGrupo;
+
 create table avaliacao (
 idAvaliacao int auto_increment,
 fkGrupo int,
